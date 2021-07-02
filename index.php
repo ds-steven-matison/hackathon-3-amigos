@@ -13,6 +13,8 @@ if($NIFI_URL != '') { // this is APP DC1
 } else if ($ASTRA_TOKEN == '') { // this is APP DC2
     // startpage should be READ DATA VIEW
     $startpage = "start_read.php";
+    // this is for APP DC2
+
 } else { // this is APP GCP
     // startpage should be READ DATA VIEW
     $startpage = "start_read.php";

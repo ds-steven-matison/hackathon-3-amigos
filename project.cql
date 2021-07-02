@@ -1,7 +1,7 @@
 CREATE KEYSPACE IF NOT EXISTS "biometrics" 
   WITH REPLICATION = {
     'class' : 'SimpleStrategy',
-    'replication_factor' : 3
+    'replication_factor' : 1
   }
 AND DURABLE_WRITES = true; 
 USE "biometrics";

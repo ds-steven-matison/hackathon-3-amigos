@@ -49,7 +49,7 @@
 
 <tr>
     <td colspan="6">
-        <input id="nextVoter" type="submit" class="submit btn btn-success" value="Next Voter">
+        <input id="nextVoter" type="submit" class="hidden submit btn btn-success" value="Next Voter">
     </td>
 </tr>
 

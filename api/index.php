@@ -2,12 +2,11 @@
 
 include "/usr/share/nginx/html/env.php";
 
-// this is for APP DC2
-//include('common.php');
-//require_once('AuthDb.php');
-//$auth_token = AuthDb::getInstance()->getAuthToken();
-// took this out for now (add back to curl headers): 'X-Cassandra-Token: ' . $auth_token, 
-
+if($ASTRA_TOKEN == '') {
+    require_once('AuthDb.php');
+    $ASTRA_TOKEN = AuthDb::getInstance()->getAuthToken();
+    putenv("ASTRA_TOKEN=$ASTRA_TOKEN");
+}
 function uuid() {
     // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
     $data = random_bytes(16);
