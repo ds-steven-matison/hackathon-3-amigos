@@ -36,6 +36,7 @@ if($NIFI_URL != '') { // this is APP DC1
         .fingerprint{ width: 79px; height: 132px; padding: 2px;}
         .signature{ width: 809px; }
         .submit { width: 809px; }
+        .hidden { display:none; }
     </style>
 </head>
 <body>

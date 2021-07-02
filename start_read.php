@@ -67,10 +67,11 @@ $(document).ready(function() {
             type: 'POST',
             url: '/api/',
             data: "action=showCard",
-            success: function(data) {
-               var json = $.parseJSON(data);
+            success: function(data) {              
+               	var json = $.parseJSON(data);
+               	if(json.data != undefined && json.data.length != undefined){
 
-				for (var i=0;i<json.data.length;++i)
+					for (var i=0;i<json.data.length;++i)
 				        {
 				        	// need to fix this later, the source data was posted wrong order
 							$( "#image1" ).append( '<img class="image1" src="' + json.data[i].face_photo_2 + '" alt="" />' );
@@ -88,10 +89,12 @@ $(document).ready(function() {
 							$( "#image4-0" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
 							$( "#image5" ).append( '<img class="signature" src="' + json.data[i].face_photo_1 + '" alt="" />' );
 				       }
-
-            },
+				    // if we have more than 1 row, unhide the next button, and prop this code up to loop through result set
+		       	}
+		       	else {
+		       		alert('No data here yet, load some and refresh this page.');
+		       	}
+            }
         });
-
-
   });
 </script>
