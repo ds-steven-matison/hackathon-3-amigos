@@ -25,7 +25,7 @@ kube-prometheus-stack:
   adminPassword: admin123
 stargate:
   enabled: true
-  version: 1.0.10
+  version: 1.0.29
   replicas: 1
   heapMB: 512
   cpuReqMillicores: 200
