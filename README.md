@@ -3,13 +3,13 @@
 This project assumes you have an existing [k8ssandra](https://k8ssandra.io/) cluster where you are able to apply the deployment.yamls.
 One could deploy without k8ssandra providing some basic changes to env passed to the deployments.
 
-My testing environment is a k3d cluster running k8ssanrda.  I also have a GK3 cluster running k8ssandra.
+My testing environment is a k3d cluster running k8ssanrda.  I also have a GKE cluster running k8ssandra.
 
 If you are using k3ds here are the commands to get started.
 
 ```
 git clone https://github.com/ds-steven-matison/hackathon-3-amigos.git
-cd hackathon-3-amigos.git
+cd hackathon-3-amigos
 k3d cluster create
 helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra
 watch kubectl get pods
