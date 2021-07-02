@@ -1,6 +1,18 @@
 # Hackathon 3 Amigos
 
+This project assumes you have an existing [k8ssandra](https://k8ssandra.io/) cluster where you are able to apply the deployment.yamls.
+One could deploy without k8ssandra providing some basic changes to env passed to the deployments.
+
+My testing environment is a k3d cluster running k8ssanrda.  I also have a GK3 cluster running k8ssandra.
+
+If you are using k3ds here are the commands to get started.
+
+
 ## Create your own dockerhub image
+
+You are able to use my dockerhub image if you do not want to change the deployment.  If you are changing the app, please
+follow the directions to create your own image, and put the docker build/push into your dev cycle to reset the app as you iterate app changes.
+
 
 Current Docker [image](https://hub.docker.com/repository/docker/dsstevenmatison/tres-amigos). 
 

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tres-amigos-gcp
+spec:
+  selector:
+    matchLabels:
+      app: tres-amigos-gcp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tres-amigos-gcp
+        env: gcp
+    spec:
+      containers:
+      - name: tres-amigos-gcp
+        image: docker.io/dsstevenmatison/tres-amigos:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: KEYSPACE
+            value: "biometrics"
+          - name: STARGATE_URL
+            value: "https://0ee07f32-e00c-4e53-b287-6de450f7dfe4-us-east1.apps.astra.datastax.com/api/rest/v2/"
+          - name: GRAPHQL_URL
+            value: "https://0ee07f32-e00c-4e53-b287-6de450f7dfe4-us-east1.apps.astra.datastax.com/api/graphql/"
+          - name: ASTRA_TOKEN
+            value: ""
