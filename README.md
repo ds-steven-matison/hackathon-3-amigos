@@ -7,12 +7,44 @@ My testing environment is a k3d cluster running k8ssanrda.  I also have a GK3 cl
 
 If you are using k3ds here are the commands to get started.
 
+```
+git clone https://github.com/ds-steven-matison/hackathon-3-amigos.git
+cd hackathon-3-amigos.git
+k3d cluster create
+helm install -f k8ssandra.yaml k8ssandra k8ssandra/k8ssandra
+watch kubectl get pods
+```
+:warning:  Make sure you have already completed all of the environment setups per [k8ssandra documentation](https://docs.k8ssandra.io/install/local/#prerequisites).
+
+## User and pass needed for local testing
+
+```
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.username}" | base64 --decode ; echo
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.password}" | base64 --decode ; echo
+```
+
+## Port forwarding for local access
+
+```
+kubectl port-forward svc/k8ssandra-dc1-stargate-service 8080 8081 8082 9042
+```
+
+## Use cqlsh to load project.cql statements
+
+```
+kubectl exec -it k8ssandra-dc1-default-sts-0 -- bash -c "wget https://raw.githubusercontent.com/ds-steven-matison/hackathon-3-amigos/main/project.cql -P /tmp && /opt/cassandra/bin/cqlsh localhost 9042 -u k8ssandra-superuser -p [pass above] -f /tmp/project.cql"
+```
+
+## Deploy the project application
+
+```
+kubectl apply -f deployment.k8s.yaml
+```
 
 ## Create your own dockerhub image
 
-You are able to use my dockerhub image if you do not want to change the deployment.  If you are changing the app, please
-follow the directions to create your own image, and put the docker build/push into your dev cycle to reset the app as you iterate app changes.
-
+You are able to use this project's dockerhub image if you do not want to change the deployment.  If you are changing the app, please
+follow these directions to create your own image, and put the docker build/push steps into your dev cycle to reset the app as you iterate app changes.
 
 Current Docker [image](https://hub.docker.com/repository/docker/dsstevenmatison/tres-amigos). 
 
