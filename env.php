@@ -1,0 +1,14 @@
+<?php
+
+$KEYSPACE = getenv('KEYSPACE');
+$K8S_USERNAME = getenv('K8S_USERNAME');
+$K8S_PASSWORD = getenv('K8S_PASSWORD');
+$K8S_AUTH_URL = getenv('K8S_AUTH_URL');
+$STARGATE_URL = getenv('STARGATE_URL');
+$GRAPHQL_URL = getenv('GRAPHQL_URL');
+$NIFI_URL = getenv('NIFI_URL');
+$PULSAR_SERVICE_URL = getenv('PULSAR_SERVICE_URL');
+$PULSAR_TOKEN = getenv('PULSAR_TOKEN'); 
+$ASTRA_TOKEN = getenv('ASTRA_TOKEN');
+
+?>
