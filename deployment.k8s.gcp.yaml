@@ -23,8 +23,8 @@ spec:
           - name: KEYSPACE
             value: "biometrics"
           - name: STARGATE_URL
-            value: "https://0ee07f32-e00c-4e53-b287-6de450f7dfe4-us-east1.apps.astra.datastax.com/api/rest/v2/"
+            value: "https://[dbId]-[region].apps.astra.datastax.com/api/rest/v2/"
           - name: GRAPHQL_URL
-            value: "https://0ee07f32-e00c-4e53-b287-6de450f7dfe4-us-east1.apps.astra.datastax.com/api/graphql/"
+            value: "https://[dbId]-[region].apps.astra.datastax.com/api/graphql/"
           - name: ASTRA_TOKEN
-            value: "AstraCS:oJBSfaALYoHHjJTNshwkLPre:e9d84ee2b113d116ad6ef7442d78e3f50dc8a71c98721d93be55222bfd7fd0da"
+            value: ""

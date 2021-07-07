@@ -74,20 +74,20 @@ $(document).ready(function() {
 					for (var i=0;i<json.data.length;++i)
 				        {
 				        	// need to fix this later, the source data was posted wrong order
-							$( "#image1" ).append( '<img class="image1" src="' + json.data[i].face_photo_2 + '" alt="" />' );
-							$( "#image2" ).append( '<img class="image2-3" src="' + json.data[i].face_photo_3 + '" alt="" />' );
-							$( "#image3" ).append( '<img class="image2-3" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
-							$( "#image4-1" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-2" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-3" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-4" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-5" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-6" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-7" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-8" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-9" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image4-0" ).append( '<img class="fingerprint" src="' + json.data[i].signature + '" alt="" />' );
-							$( "#image5" ).append( '<img class="signature" src="' + json.data[i].face_photo_1 + '" alt="" />' );
+							$( "#image1" ).append( '<img class="image1" src="' + json.data[i].face_photo_1 + '" alt="" />' );
+							$( "#image2" ).append( '<img class="image2-3" src="' + json.data[i].face_photo_2 + '" alt="" />' );
+							$( "#image3" ).append( '<img class="image2-3" src="' + json.data[i].face_photo_3 + '" alt="" />' );
+							$( "#image4-1" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-2" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-3" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-4" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-5" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-6" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-7" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-8" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-9" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image4-0" ).append( '<img class="fingerprint" src="' + json.data[i].fingerprint_left_index + '" alt="" />' );
+							$( "#image5" ).append( '<img class="signature" src="' + json.data[i].signature + '" alt="" />' );
 				       }
 				    // if we have more than 1 row, unhide the next button, and prop this code up to loop through result set
 		       	}
