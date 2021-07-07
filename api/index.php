@@ -105,7 +105,8 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 				'fingerprint_right_pinky' => '',
 				'fingerprint_right_ring' => '',
 				'fingerprint_right_thumb' => '',
-				'signature' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image5))
+				'signature' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image5)),
+				'updated_ts' => '2011-02-03 04:05:00+0000'
 			);
 			
 			$data_json = json_encode($data_array);
