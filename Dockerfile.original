@@ -1,0 +1,12 @@
+from jmcarbo/nginx-php-fpm
+COPY php.ini /etc/php5/fpm/php.ini
+COPY www.conf /etc/php5/fpm/pool.d/www.conf
+COPY . /usr/share/nginx/html
+
+#RUN apt-get -y install gcc make autoconf libc-dev pkg-config
+#	apt-get -y install libmagickwand-dev
+#ß	peclX.Y-sp install imagic
+
+#FROM php:7.2-fpm
+#RUN mkdir /app
+#COPY . /app

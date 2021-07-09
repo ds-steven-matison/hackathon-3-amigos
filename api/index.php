@@ -1,6 +1,7 @@
 <?php header("Access-Control-Allow-Origin: *");
 
-include "/usr/share/nginx/html/env.php";
+
+include dirname(realpath('.'))."/env.php";
 
 if($NIFI_URL == '' && $ASTRA_TOKEN == '') {
 	class AuthDb {
@@ -9,7 +10,7 @@ if($NIFI_URL == '' && $ASTRA_TOKEN == '') {
 	   
 	  private function __construct()
 	  {
-	  	include "/usr/share/nginx/html/env.php";
+	  	include dirname(realpath('.'))."/env.php";
 	    $auth_data = '{"username": "' . $K8S_USERNAME . '","password": "' . $K8S_PASSWORD . '"}';
 	    $url = $K8S_AUTH_URL;
 	    $request = curl_init($url);
@@ -52,17 +53,23 @@ if($NIFI_URL == '' && $ASTRA_TOKEN == '') {
 
 
 function uuid() {
-    // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
     $data = openssl_random_pseudo_bytes(16);
     assert(strlen($data) == 16);
-
-    // Set version to 0100
     $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
-    // Set bits 6-7 to 10
     $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
-    // Output the 36 character UUID.
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
+function tintTheImage($image,$color) {
+	$im = new imagick(dirname(realpath('.'))."/images/".$image);
+	$opacityColor = new \ImagickPixel("rgba(255, 0, 0, 0.5)");
+	$im->colorizeImage($color, $opacityColor, true);
+	$im->setImageFormat("jpg");
+	ob_start();
+	$newImage = $im->getImageBlob();
+	$contents =  ob_get_contents();
+	ob_end_clean();
+	return base64_encode($newImage);
 }
 
 if($_SERVER['REQUEST_METHOD']=="POST") {
@@ -70,7 +77,8 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 		// handle ui event 	
 		$table_name = 'biometrics_by_voter';
 		$request = curl_init();
-		$url = $STARGATE_URL . 'keyspaces/' . $KEYSPACE . '/' . $table_name . '/rows';
+		$url = $STARGATE_URL . 'keyspaces/' . $KEYSPACE . '/' . $table_name . '/rows?page-size=1';
+		if(isset($_POST['pagestate'])) { $url .= "&page-state=".$_POST['pagestate']; }
 		curl_setopt($request, CURLOPT_URL, $url);
 		curl_setopt($request, CURLOPT_HTTPHEADER, array('X-Cassandra-Token: ' . $ASTRA_TOKEN, 'Content-Type: application/json'));
 		curl_setopt($request, CURLOPT_CUSTOMREQUEST, 'GET');
@@ -92,10 +100,10 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 			$url = 'http://143.198.122.36:8081/pulsar-producer';
 			$data_array = array(
 				'voter_uuid' => uuid(),
-				'face_photo_1' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image1)),
-				'face_photo_2' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image2)),
-				'face_photo_3' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image3)),
-				'fingerprint_left_index' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image4)),
+				'face_photo_1' => 'data:image/jpg;base64,'.tintTheImage($image1,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
+				'face_photo_2' => 'data:image/jpg;base64,'.tintTheImage($image2,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
+				'face_photo_3' => 'data:image/jpg;base64,'.tintTheImage($image3,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
+				'fingerprint_left_index' => 'data:image/jpg;base64,'.tintTheImage($image4,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
 				'fingerprint_left_middle' => '',
 				'fingerprint_left_pinky' => '',
 				'fingerprint_left_ring' => '',
@@ -105,7 +113,7 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 				'fingerprint_right_pinky' => '',
 				'fingerprint_right_ring' => '',
 				'fingerprint_right_thumb' => '',
-				'signature' => 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image5)),
+				'signature' => 'data:image/jpg;base64,'.tintTheImage($image5,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
 				'updated_ts' => '2011-02-03 04:05:00+0000'
 			);
 			
@@ -134,7 +142,7 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 		foreach($source_images as $image) { 
 			$image_data = 'data:image/jpg;base64,'.base64_encode(file_get_contents('/usr/share/nginx/html/images/'.$image));
 			$request = curl_init();
-			$url = 'http://143.198.122.36:8081/pulsar-producer';
+			$url = 'http://localhost:8081/pulsar-producer';
 			$data_array = array();
 			$data_array['image_name'] = $image;
 			$data_array['image_data'] = $image_data;
