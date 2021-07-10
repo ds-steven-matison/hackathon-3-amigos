@@ -3,6 +3,9 @@
 	<div class="container">
 		<div class="row">
 			<div id="showCard">
+				<div id="topStrip" class="topStrip">
+					<div id="voterId"></div>
+				</div>
 			<table>
 <tbody>
 
@@ -21,7 +24,7 @@
 </tbody>
 </table>        
 
-<table>
+<table style="margin-left: 2px; margin-top:2px;">
 <tbody>
 <tr>
 <td><div id="image4-1"></div></td>
@@ -91,9 +94,11 @@ $(document).ready(function() {
 				    if(json.pageState) { 
 				    	$( "#nextVoter" ).removeClass("hidden"); 
 				    	$( "#page-state" ).val(json.pageState);
+				    	$( "#voterId" ).html('Voter ID: '+json.data[i].voter_uuid);
 				    } else { 
 				    	$( "#nextVoter" ).addClass("hidden"); 
 				    	$( "#page-state" ).val(json.pageState);
+
 				    }
 		       	}
 		       	else {
@@ -107,7 +112,6 @@ $(document).ready(function() {
         e.preventDefault();
         var action = "showCard";
         var pagestate = $("#page-state").val();
-        alert('Next Page State: ' + pagestate);
         $.ajax({
             type: "POST",
             url: "/api/",
@@ -136,6 +140,7 @@ $(document).ready(function() {
 		       	if(json.pageState) {
 			    	$( "#nextVoter" ).removeClass("hidden"); 
 			    	$( "#page-state" ).val(json.pageState);
+			    	$( "#voterId" ).html('Voter ID: '+json.data[i].voter_uuid);
 			    } else { 
 			    	$( "#nextVoter" ).addClass("hidden"); 
 			    	$( "#page-state" ).val();

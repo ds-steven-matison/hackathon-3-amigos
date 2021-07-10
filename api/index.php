@@ -95,9 +95,13 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 		$image3 = 'machado_de_assis_dominio-publico-9kb.jpg';
 		$image4 = 'fingerprint-22kb.png';
 		$image5 = 'assinatura_machado_de_assis-dominio-publico-14kb.jpg';
+		$table_name = 'biometrics_by_voter';
 		$request = curl_init();
-			//$url = $STARGATE_URL."/api/path/here/";
-			$url = 'http://143.198.122.36:8081/pulsar-producer';
+
+			$url = $STARGATE_URL.'keyspaces/' . $KEYSPACE . '/' . $table_name;
+			// this should now be the NIFI URL at DC1
+			// need api path for post new row into local database biometrics_by_voter
+			//$url = 'http://143.198.122.36:8081/pulsar-producer';
 			$data_array = array(
 				'voter_uuid' => uuid(),
 				'face_photo_1' => 'data:image/jpg;base64,'.tintTheImage($image1,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),

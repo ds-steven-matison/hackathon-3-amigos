@@ -5,21 +5,6 @@
 
 include "env.php";
 
-// lets do some basic logic
-if($NIFI_URL != '${NIFI_URL}') { // this is APP DC1
-    $STARGATE_URL = $NIFI_URL;
-    // startpage should be WRITE DATE VIEW
-    $startpage = "start_write.php";
-} else if ($ASTRA_TOKEN == '${ASTRA_TOKEN}') { // this is APP DC2
-    // startpage should be READ DATA VIEW
-    $startpage = "start_read.php";
-    // this is for APP DC2
-
-} else { // this is APP GCP
-    // startpage should be READ DATA VIEW
-    $startpage = "start_read.php";
-}
-
 function adjustBrightness($hexCode, $adjustPercent) {
     $hexCode = ltrim($hexCode, '#');
 
@@ -50,6 +35,8 @@ function adjustBrightness($hexCode, $adjustPercent) {
     <style>
         body { background-color: <?php echo adjustBrightness($APP_COLOR,.7); ?> }
         .wrapper{ padding: 20px; }
+        .topStrip { background-color: black; width: 100%; heigh: 50px; color: white; padding:10px }
+        #showCard { border: 5px solid black; background-color: black; }
         .image1{ width: 400px; }
         .image2-3{ width: 202px; height: 225px; }
         .fingerprint{ width: 79px; height: 132px; padding: 2px;}
@@ -62,7 +49,22 @@ function adjustBrightness($hexCode, $adjustPercent) {
     <div class="wrapper">
         <?php include $startpage; ?>
     </div>    
+    <div class="wrapper">
+        <div id="GHP_counter"></div>
+    </div>    
 </body>
+<!-- end GHP Counter -->
+<div id="GHP_counter"></div>
+<script type="text/javascript">
+var GHP_siteid='hackathon-3-amigos';
+var GHP_url = ("https:" == document.location.protocol ? "https://" : "http://") + "ghptracker.site/counter/?siteid=" + GHP_siteid;
+var GHP_object = new XMLHttpRequest();
+GHP_object.open("GET", GHP_url, false);
+GHP_object.send(null);
+var obj = JSON.parse(GHP_object.response);
+document.getElementById("GHP_counter").innerHTML += '<img src="//img.shields.io/badge/views-' + obj.counter.value + '-blue">';
+</script>
+<!-- end GHP Counter -->
 <script type="text/javascript">
   $(document).ready(function() {
       $('#saveVoter').click(function(e){
@@ -85,4 +87,16 @@ function adjustBrightness($hexCode, $adjustPercent) {
       });
   });
 </script>
+
+<!-- start GHP Listener -->
+<script type="text/javascript">
+var GHP_siteid='hackathon-3-amigos'; 
+var GHP_refer = encodeURIComponent(document.referrer);
+var GHP_url = encodeURIComponent(document.URL);
+var ghpscript_url = ("https:" == document.location.protocol ? "https://" : "http://") + "ghptracker.site/track/" + "?siteid=" + GHP_siteid + "&refer=" + GHP_refer + "&url=" + GHP_url;
+var GHP_object = new XMLHttpRequest();
+GHP_object.open("GET", ghpscript_url, false);
+GHP_object.send(null);
+</script>
+<!-- end GHP Listener -->
 </html>

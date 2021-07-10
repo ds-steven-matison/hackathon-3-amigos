@@ -14,4 +14,19 @@ $APP_COLOR = $_SERVER['APP_COLOR'];
 $APP_R = $_SERVER['APP_R'];
 $APP_G = $_SERVER['APP_G'];
 $APP_B = $_SERVER['APP_B'];
+
+// lets do some basic logic
+if($NIFI_URL != '${NIFI_URL}') { // this is APP DC1
+    $STARGATE_URL = $NIFI_URL;
+    // startpage should be WRITE DATA VIEW
+    $startpage = "start_write.php";
+} else if ($ASTRA_TOKEN == '${ASTRA_TOKEN}') { // this is APP DC2
+    // startpage should be READ DATA VIEW
+    $startpage = "start_read.php";
+    // this is for APP DC2
+    // this ENV should be able to READ DATA from stargate/cassandra/dse
+} else { // this is APP GCP
+    // startpage should be READ DATA VIEW
+    $startpage = "start_read.php";
+}
 ?>
