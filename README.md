@@ -6,9 +6,10 @@ One could deploy without k8ssandra providing some basic changes to env passed to
 My testing environment is a mac and a centos 8.3 k3d cluster running k8ssanrda.  I also have a GKE cluster running k8ssandra on anthos. There are 3 environment scenarios for this application.
 1. DC1 - with env.DC1 the application is in data writing state to cassandra 4.0 and Astra Streaming topic
 2. DC2 - with env.DC2 the application is in a data reading state from Astra Streaming to DSE
-3. GCP - with env.GCP the application is in a data reading state from Astra Database 
+3. GCP - with env.GCP the application is in a data reading state from Astra Database
 
-If you are using k3ds here are the commands to get started.
+
+# Commands to get started
 
 ```
 git clone https://github.com/ds-steven-matison/hackathon-3-amigos.git
@@ -98,3 +99,47 @@ kubectl apply -f deployment.k8s.yaml
 kubectl delete pod tres-amigos-6c6cd5c6d6-qlxhb
 ```
 :bulb: Monitor your <b></i>watch kubectl get pods</i></b> terminal and watch this pod terminate and recreate!!!
+
+## Centos 8.3 Full Install (32gb)
+
+```js
+# setup the env
+yum repo update
+sudo dnf install docker-ce --nobest
+sudo systemctl enable --now docker
+systemctl status docker 
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# clone repo
+git clone https://github.com/ds-steven-matison/hackathon-3-amigos.git
+cd hackathon-3-amigos/
+
+# create cluster and install k8ssandra
+k3d cluster create
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+helm repo update
+helm install -f k8ssandra.do.yaml k8ssandra k8ssandra/k8ssandra
+
+# get user and password
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.username}" | base64 --decode ; echo
+kubectl get secret k8ssandra-superuser -o jsonpath="{.data.password}" | base64 --decode ; echo
+
+# execute cql for project
+kubectl exec -it k8ssandra-dc1-default-sts-0 -- bash -c "wget https://raw.githubusercontent.com/ds-steven-matison/hackathon-3-amigos/main/project.cql -P /tmp && /opt/cassandra/bin/cqlsh localhost 9042 -u k8ssandra-superuser -p [pass above] -f /tmp/project.cql"
+
+# edit env vars here
+kubectl apply -f deployment.k8s.dc1.yaml
+kubectl apply -f deployment.k8s.gcp.yaml
+
+# port forward apps
+kubectl port-forward --address localhost,1xx.1xx.1xx.1x deployments/tres-amigos  1337:80
+kubectl port-forward --address localhost,1xx.1xx.1xx.1x deployments/tres-amigos-gcp  1338:80
+
+# port forward stargate
+kubectl port-forward svc/k8ssandra-dc1-stargate-service 8080 8081 8082 9042
+kubectl port-forward --address localhost,1xx.1xx.1xx.1x svc/k8ssandra-dc1-stargate-service 8080 8081 8082 9042
+
+```
