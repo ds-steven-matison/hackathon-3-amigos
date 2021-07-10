@@ -46,3 +46,11 @@ spec:
             value: ""
           - name: ASTRA_TOKEN
             value: ""
+          - name: APP_COLOR
+            value: "CC99C9"
+          - name: APP_R
+            value: "204"
+          - name: APP_G
+            value: "153"
+          - name: APP_B
+            value: "201"
