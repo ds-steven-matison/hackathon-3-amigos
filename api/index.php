@@ -114,8 +114,9 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 				'fingerprint_right_ring' => '',
 				'fingerprint_right_thumb' => '',
 				'signature' => 'data:image/jpg;base64,'.tintTheImage($image5,'rgb('.$APP_R.', '.$APP_B.', '.$APP_G.')'),
-				'updated_ts' => '2011-02-03 04:05:00+0000'
+				'updated_ts' => '2011-02-03T04:05:00Z'
 			);
+			// 2011-02-03T04:05:00Z
 			
 			$data_json = json_encode($data_array);
 			curl_setopt($request, CURLOPT_URL, $url);
