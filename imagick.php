@@ -1,4 +1,6 @@
 <?php
+// This file is used to test imageMagick plugin is working with php
+
 //This function prints a text array as an html list.
 function alist ($array) {  
   $alist = "<ul>";
@@ -32,7 +34,5 @@ $thumbnail = $im->getImageBlob();
 $contents =  ob_get_contents();
 ob_end_clean();
 echo "<img src='data:image/jpg;base64,".base64_encode($thumbnail)."' />";
-
-
 
 ?>
