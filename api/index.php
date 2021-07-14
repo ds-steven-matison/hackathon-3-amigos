@@ -2,7 +2,7 @@
 
 include dirname(realpath('.'))."/env.php";
 
-if($NIFI_URL == '' && $ASTRA_TOKEN == '') {
+if($NIFI_URL == '${NIFI_URL}' && $ASTRA_TOKEN == '${ASTRA_TOKEN}') {
 	class AuthDb {
 	  private static $instance = null;
 	  private $auth_token;
@@ -47,7 +47,9 @@ if($NIFI_URL == '' && $ASTRA_TOKEN == '') {
 	}
 
     $ASTRA_TOKEN = AuthDb::getInstance()->getAuthToken();
+
     putenv("ASTRA_TOKEN=$ASTRA_TOKEN");
+    $_SERVER['ASTRA_TOKEN'] = $ASTRA_TOKEN;
 }
 
 
