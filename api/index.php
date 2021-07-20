@@ -88,8 +88,8 @@ if($_SERVER['REQUEST_METHOD']=="POST") {
 		curl_close($request);
 		echo stripslashes($response); // try fix this later
 	}
-	else if(isset($_POST["action"]) && $_POST["action"]=='saveVoter') { 
-		// handle ui event saveVoter
+	else if(isset($_POST["action"]) && $_POST["action"]=='saveCard') { 
+		// handle ui event saveCard
 		$errorMSG = "";
 		$image1 = 'machado_de_assis_dominio-publico-84kb.jpg';
 		$image2 = 'machado_de_assis_dominio-publico-12kb.jpg';

@@ -67,9 +67,9 @@ document.getElementById("GHP_counter").innerHTML += '<img src="//img.shields.io/
 <!-- end GHP Counter -->
 <script type="text/javascript">
   $(document).ready(function() {
-      $('#saveVoter').click(function(e){
+      $('#saveCard').click(function(e){
         e.preventDefault();
-        var action = "saveVoter";
+        var action = "saveCard";
         $.ajax({
             type: "POST",
             url: "/api/",

@@ -52,7 +52,7 @@
 
 <tr>
     <td colspan="6">
-        <input id="nextVoter" type="submit" class="hidden submit btn btn-success" value="Next Voter">
+        <input id="nextCard" type="submit" class="hidden submit btn btn-success" value="Next Card">
         <input type="hidden" id="page-state" value="">
     </td>
 </tr>
@@ -92,11 +92,11 @@ $(document).ready(function() {
 					$( "#image5" ).append( '<img class="signature" src="' + json.data[i].signature + '" alt="" />' );
 		    		
 				    if(json.pageState) { 
-				    	$( "#nextVoter" ).removeClass("hidden"); 
+				    	$( "#nextCard" ).removeClass("hidden"); 
 				    	$( "#page-state" ).val(json.pageState);
 				    	$( "#voterId" ).html('Voter ID: '+json.data[i].voter_uuid);
 				    } else { 
-				    	$( "#nextVoter" ).addClass("hidden"); 
+				    	$( "#nextCard" ).addClass("hidden"); 
 				    	$( "#page-state" ).val(json.pageState);
 
 				    }
@@ -108,7 +108,7 @@ $(document).ready(function() {
         });
     // i need to create a generic function to parse data object into images, that can pass into page load function above and click function below
 
-    $('#nextVoter').click(function(e){
+    $('#nextCard').click(function(e){
         e.preventDefault();
         var action = "showCard";
         var pagestate = $("#page-state").val();
@@ -138,11 +138,11 @@ $(document).ready(function() {
 
 		       	}
 		       	if(json.pageState) {
-			    	$( "#nextVoter" ).removeClass("hidden"); 
+			    	$( "#nextCard" ).removeClass("hidden"); 
 			    	$( "#page-state" ).val(json.pageState);
 			    	$( "#voterId" ).html('Voter ID: '+json.data[i].voter_uuid);
 			    } else { 
-			    	$( "#nextVoter" ).addClass("hidden"); 
+			    	$( "#nextCard" ).addClass("hidden"); 
 			    	$( "#page-state" ).val();
 			    }
         }

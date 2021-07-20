@@ -44,7 +44,7 @@
 
 <tr>
     <td colspan="6">
-        <input id="saveVoter" type="submit" class="submit btn btn-primary" value="Save Voter">
+        <input id="saveCard" type="submit" class="submit btn btn-primary" value="Save Card">
     </td>
 </tr>
 
