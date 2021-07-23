@@ -19,7 +19,7 @@ service_url = ''
 trust_certs='/etc/ssl/certs/ca-bundle.crt'
 # Debian/Ubuntu:
 # trust_certs='/etc/ssl/certs/ca-certificates.crt'
-token=''
+token='[token goes here]'
 client = pulsar.Client(service_url,
                         authentication=pulsar.AuthenticationToken(token),
                         tls_trust_certs_file_path=trust_certs)
@@ -40,7 +40,7 @@ class Example(Record):
     fingerprint_right_pinky = String()
     signature = String()
     updated_ts = String()
-producer = client.create_producer(topic='', schema=AvroSchema(Example))
+producer = client.create_producer(topic='[topic goes here]', schema=AvroSchema(Example))
 producer.send(Example(voter_uuid=y["voter_uuid"],
 face_photo_1=y["face_photo_1"],
 face_photo_2=y["face_photo_2"],
