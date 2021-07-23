@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tres-amigos
+spec:
+  selector:
+    matchLabels:
+      app: tres-amigos
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tres-amigos
+        env: gcp
+    spec:
+      containers:
+      - name: tres-amigos
+        image: docker.io/dsstevenmatison/tres-amigos:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: KEYSPACE
+            value: "biometrics"
+          - name: K8S_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: k8ssandra-superuser 
+                key: username
+          - name: K8S_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: k8ssandra-superuser 
+                key: password               
+          - name: K8S_AUTH_URL
+            value: "http://k8ssandra-dc1-stargate-service:8081/v1/auth"
+          - name: STARGATE_URL
+            value: "http://k8ssandra-dc1-stargate-service:8082/v2/"
+          - name: GRAPHQL_URL
+            value: "http://k8ssandra-dc1-stargate-service:8080/graphql/"
+          - name: NIFI_URL
+            value: "http://[IP Address]:9090/v2/"
+          - name: PULSAR_SERVICE_URL
+            value: "[Pulsar Service Url]"
+          - name: PULSAR_TOKEN
+            value: "[Topic Token]"
+          - name: ASTRA_TOKEN
+            value: ""
+          - name: APP_COLOR
+            value: "FF6663"
+          - name: APP_R
+            value: "255"
+          - name: APP_G
+            value: "102"
+          - name: APP_B
+            value: "99"
